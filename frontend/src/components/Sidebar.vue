@@ -11,40 +11,40 @@ import { Icon } from "@iconify/vue";
         >New Post</span
       ></router-link
     >
-    <router-link to=""
+    <router-link to="" active-class="  border-1 bg-gray-200 px-3 py-1 rounded-md  "
       ><Icon icon="mdi:design" class="inline-block mr-2" />
       <span class="text-blue-800">Design</span></router-link
     >
-    <router-link to=""
+    <router-link to="" active-class="  border-1 bg-gray-200 px-3 py-1 rounded-md  "
       ><Icon icon="mdi:gamepad-variant" class="inline-block mr-2" />
       <span class="text-blue-800">Game</span></router-link
     >
-    <router-link to=""
+    <router-link to="" active-class="  border-1 bg-gray-200 px-3 py-1 rounded-md  "
       ><Icon icon="mdi:voice" class="inline-block mr-2" />
       <span class="text-blue-800"> Voice to Text</span></router-link
     >
-    <router-link to=""
+    <router-link to="" active-class="  border-1 bg-gray-200 px-3 py-1 rounded-md  "
       ><Icon icon="mdi:chart-line" class="inline-block mr-2" />
       <span class="text-blue-800">Marketing</span></router-link
     >
-    <router-link to=""
+    <router-link to="" active-class="  border-1 bg-gray-200 px-3 py-1 rounded-md  "
       ><Icon icon="mdi:briefcase" class="inline-block mr-2" />
       <span class="text-blue-800">Job </span></router-link
     >
-    <router-link to=""
+    <router-link to="" active-class="  border-1 bg-gray-200 px-3 py-1 rounded-md  "
       ><Icon icon="mdi:announcement" class="inline-block mr-2" />
       <span class="text-blue-800">Ad</span></router-link
     >
-    <router-link to=""
+    <router-link to="" active-class="  border-1 bg-gray-200 px-3 py-1 rounded-md  "
       ><Icon icon="mdi:language" class="inline-block mr-2" />
       <span class="text-blue-800">Sign Language</span></router-link
     >
     <h1 class="font-semibold text-xl">Other</h1>
-    <router-link to="" class=""
+    <router-link to="" active-class="  border-1 bg-gray-200 px-3 py-1 rounded-md  " class=""
       ><Icon icon="mdi:account-multiple" class="inline-block mr-2" />
       <span class="text-blue-800"> Follower</span></router-link
     >
-    <router-link to="" class=""
+    <router-link to="" active-class="  border-1 bg-gray-200 px-3 py-1 rounded-md  " class=""
       ><Icon icon="mdi:school" class="inline-block mr-2" /><span
         class="text-blue-800"
       >
