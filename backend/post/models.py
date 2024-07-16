@@ -16,19 +16,58 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.title or self.content[:20]
+
+    async def async_save(self):
+        await self.save()
+
+    async def async_delete(self):
+        await self.delete()
+
 class Tag(models.Model):
     name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.name
+
+    async def async_save(self):
+        await self.save()
+
+    async def async_delete(self):
+        await self.delete()
 
 class Like(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='likes')
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        unique_together = ('user', 'post')
+
+    def __str__(self):
+        return f'{self.user.username} likes {self.post.title or self.post.content[:20]}'
+
+    async def async_save(self):
+        await self.save()
+
+    async def async_delete(self):
+        await self.delete()
+
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.content[:20]
+
+    async def async_save(self):
+        await self.save()
+
+    async def async_delete(self):
+        await self.delete()
 
 class Notification(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notifications')
@@ -39,7 +78,28 @@ class Notification(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     read = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.message
+
+    async def async_save(self):
+        await self.save()
+
+    async def async_delete(self):
+        await self.delete()
+
 class Follow(models.Model):
     follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='following')
     followed = models.ForeignKey(User, on_delete=models.CASCADE, related_name='followers')
     created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('follower', 'followed')
+
+    def __str__(self):
+        return f'{self.follower.username} follows {self.followed.username}'
+
+    async def async_save(self):
+        await self.save()
+
+    async def async_delete(self):
+        await self.delete()
