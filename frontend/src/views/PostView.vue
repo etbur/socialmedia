@@ -32,7 +32,6 @@ const onSubmit = async () => {
       location: formInput.location,
       audience: formInput.audience,
     });
-    console.log(response.data)
     if (response.status === 200 || response.status === 201) {
       console.log("Form submitted successfully:", response.data);
       formInput.description = "";
@@ -50,6 +49,7 @@ const onSubmit = async () => {
     alert("An error occurred. Please try again later.");
   }
 };
+
 
 </script>
 <template>
@@ -75,6 +75,7 @@ const onSubmit = async () => {
               placeholder="What's happening?"
               id="description"
               name="description"
+             
               v-model="formInput.description"
             />
             <ErrorMessage name="description" class="text-red-500" />
@@ -86,9 +87,9 @@ const onSubmit = async () => {
               placeholder="Tag"
               id="tag"
               name="tag"
-              v-model="formInput.media"
+              v-model="formInput.tag"
             />
-            <ErrorMessage name="media" class="text-red-500" />
+            <ErrorMessage name="tag" class="text-red-500" />
           </div>
         </div>
         <div class="flex flex-col sm:flex-row gap-5">
@@ -101,7 +102,7 @@ const onSubmit = async () => {
               name="media"
               v-model="formInput.media"
             />
-            <ErrorMessage name="tag" class="text-red-500" />
+            <ErrorMessage name="media" class="text-red-500" />
           </div>
           <div class="flex flex-col gap-2 flex-1">
             <Field
@@ -139,4 +140,3 @@ const onSubmit = async () => {
     </Form>
   </main>
 </template>
-
