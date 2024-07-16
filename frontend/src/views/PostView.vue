@@ -1,9 +1,10 @@
 <script setup>
 import { reactive } from "vue";
+import { useRouter } from 'vue-router';
 import axios from "axios";
 import { Form, Field, ErrorMessage, useForm } from "vee-validate";
 import * as Yup from "yup";
-
+const router=useRouter()
 const validationSchema = Yup.object({
   description: Yup.string().required("Description is required!"),
   tag: Yup.string().required("Tag is required!"),
@@ -22,30 +23,37 @@ const formInput = reactive({
 const { handleSubmit } = useForm({
   validationSchema,
 });
-
 const onSubmit = async () => {
   try {
-    const response = await axios.post("http://localhost:8000/api/posts", {
+    const response = await axios.post("http://localhost:8000/api/posts/", {
       description: formInput.description,
       tag: formInput.tag,
       media: formInput.media,
       location: formInput.location,
       audience: formInput.audience,
     });
-
-    console.log("Form submitted successfully:", response.data);
-
-    formInput.description = "";
-    formInput.tag = "";
-    formInput.media = "";
-    formInput.location = "";
-    formInput.audience = "";
+    console.log(response.data)
+    if (response.status === 200 || response.status === 201) {
+      console.log("Form submitted successfully:", response.data);
+      formInput.description = "";
+      formInput.tag = "";
+      formInput.media = "";
+      formInput.location = "";
+      formInput.audience = "";
+      await router.push('/');
+    } else {
+      console.error("Error submitting form:", response.data);
+      // Display an error message to the user
+      alert("Failed to submit the form. Please try again later.");
+    }
   } catch (error) {
     console.error("Error submitting form:", error);
+    // Display a generic error message to the user
+    alert("An error occurred. Please try again later.");
   }
 };
-</script>
 
+</script>
 <template>
   <main
     class="flex flex-col gap-10 mx-10 md:mx-0 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 mt-8 sm:mt-12 md:mt-16 lg:mt-20 xl:mt-24"
@@ -59,7 +67,7 @@ const onSubmit = async () => {
         the reader. Additionally, you can select the target audience.
       </p>
     </div>
-    <Form :validation-schema="validationSchema" @submit.prevent="onSubmit">
+    <Form :validation-schema="validationSchema" >
       <div class="flex flex-col gap-5">
         <div class="flex flex-col sm:flex-row gap-5">
           <div class="flex flex-col gap-2 flex-1">
@@ -110,7 +118,7 @@ const onSubmit = async () => {
           </div>
           <div class="flex flex-col gap-2 w-full sm:w-[10rem]">
             <select
-              type="text"
+            
               class="px-4 py-3 border-2 rounded-lg outline-none w-full"
               v-model="formInput.audience"
             >
@@ -125,7 +133,7 @@ const onSubmit = async () => {
         <button
           type="submit"
           class="px-8 py-2 rounded-xl border-gray-300 bg-[#008A8A] text-white w-fit"
-          onclick="handleform"
+          @submit.prevent="onSubmit"
         >
           Post
         </button>
