@@ -83,9 +83,9 @@ const onSubmit = async () => {
             <Field
               type="text"
               class="px-4 py-3 border-2 rounded-lg outline-none w-full"
-              placeholder="Choice Media"
-              id="media"
-              name="media"
+              placeholder="Tag"
+              id="tag"
+              name="tag"
               v-model="formInput.media"
             />
             <ErrorMessage name="media" class="text-red-500" />
@@ -94,12 +94,12 @@ const onSubmit = async () => {
         <div class="flex flex-col sm:flex-row gap-5">
           <div class="flex flex-col gap-2 flex-1">
             <Field
-              type="text"
+              type="file"
               class="px-4 py-3 border-2 rounded-lg outline-none w-full"
-              placeholder="Tag"
-              id="tag"
-              name="tag"
-              v-model="formInput.tag"
+              placeholder="Media"
+              id="media"
+              name="media"
+              v-model="formInput.media"
             />
             <ErrorMessage name="tag" class="text-red-500" />
           </div>
