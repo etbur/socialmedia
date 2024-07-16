@@ -21,11 +21,6 @@ class CommentSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class PostSerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField()
-    tags = TagSerializer(many=True, read_only=True)
-    likes = LikeSerializer(many=True, read_only=True)
-    comments = CommentSerializer(many=True, read_only=True)
-
     class Meta:
         model = Post
         fields = '__all__'

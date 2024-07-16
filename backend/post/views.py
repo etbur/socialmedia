@@ -37,17 +37,7 @@ class PostViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
     # permission_classes = [permissions.IsAuthenticated]
 
-    async def perform_create(self, serializer):
-        channel_layer = get_channel_layer()
-        await async_to_sync(channel_layer.group_send)(
-            'notifications',
-            {
-                'type': 'new_post',
-                'user': self.request.user.username,
-                'post': serializer.data
-            }
-        )
-        serializer.save(user=self.request.user)
+ 
 
 # Notification view
 class NotificationViewSet(viewsets.ModelViewSet):
@@ -75,14 +65,4 @@ class FollowViewSet(viewsets.ModelViewSet):
     serializer_class = FollowSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-    async def perform_create(self, serializer):
-        channel_layer = get_channel_layer()
-        await async_to_sync(channel_layer.group_send)(
-            f'user_{self.request.user.id}',
-            {
-                'type': 'new_follow',
-                'follower': self.request.user.username,
-                'followed': serializer.validated_data['followed'].username
-            }
-        )
-        serializer.save(follower=self.request.user)
+    
