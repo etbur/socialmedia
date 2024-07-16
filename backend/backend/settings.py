@@ -20,17 +20,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-cp7a^bj_+!#1lk!z#9jjz8k3o)seu8*!dp4!sx+*@xz6#fc#fg'
+SECRET_KEY = 'django-insecure-2gpk=mnwv#cgpe(-eg)ifa@onzjj_$^vh3mxfh1ew9@((ibccs'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-  '*'
-]
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:5173',
-]
+ALLOWED_HOSTS = ['*']
+#Custom congigration
+
+CORS_ALLOW_ALL_ORIGINS = True
+
 CORS_ALLOW_METHODS = [
     'GET',
     'POST',
@@ -40,10 +39,17 @@ CORS_ALLOW_METHODS = [
     'OPTIONS',
 ]
 
+# CORS_ALLOW_HEADERS = [
+#     'content-type',
+#     'authorization',
+#     'x-csrftoken',
+# ]
+
+
 # Application definition
 
 INSTALLED_APPS = [
-    'post.apps.PostConfig',
+  'newpost.apps.NewpostConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -55,7 +61,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
+  'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
