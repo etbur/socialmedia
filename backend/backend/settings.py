@@ -49,7 +49,8 @@ CORS_ALLOW_METHODS = [
 # Application definition
 
 INSTALLED_APPS = [
-  'newpost.apps.NewpostConfig',
+    'daphne',
+    'newpost.apps.NewpostConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -58,10 +59,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
+    'channels',
 ]
 
 MIDDLEWARE = [
-  'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -89,7 +91,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'backend.wsgi.application'
+# WSGI_APPLICATION = 'backend.wsgi.application'
+ASGI_APPLICATION = 'backend.asgi.application' 
 
 
 # Database
