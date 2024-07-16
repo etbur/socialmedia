@@ -26,9 +26,7 @@ SECRET_KEY = 'django-insecure-o$4)j-3u$ou2y7eomjb7&v8^kpuk40hc*eu(_(smd3xp0xb@6@
 DEBUG = True
 
 ALLOWED_HOSTS = []
-CROS_ORIGIN_ALLOW=[
-  'http://localhost:5173',
-]
+CROS_ORIGIN_ALLOW_All=True
 
 
 # Application definition
@@ -43,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -73,10 +72,7 @@ TEMPLATES = [
         },
     },
 ]
-
-WSGI_APPLICATION = 'backend.wsgi.application'
-
-
+ASGI_APPLICATION = 'backend.asgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 

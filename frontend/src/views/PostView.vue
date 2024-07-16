@@ -25,7 +25,7 @@ const { handleSubmit } = useForm({
 });
 const onSubmit = async () => {
   try {
-    const response = await axios.post("http://localhost:8000/api/posts/", {
+    const response = await axios.post("http://localhost:8000/api/posts", {
       description: formInput.description,
       tag: formInput.tag,
       media: formInput.media,
@@ -43,12 +43,10 @@ const onSubmit = async () => {
       await router.push('/');
     } else {
       console.error("Error submitting form:", response.data);
-      // Display an error message to the user
       alert("Failed to submit the form. Please try again later.");
     }
   } catch (error) {
     console.error("Error submitting form:", error);
-    // Display a generic error message to the user
     alert("An error occurred. Please try again later.");
   }
 };
@@ -81,14 +79,14 @@ const onSubmit = async () => {
             />
             <ErrorMessage name="description" class="text-red-500" />
           </div>
-          <div class="flex  relative flex-col gap-2 w-full sm:w-[10rem]">
+          <div class="flex flex-col gap-2 w-full sm:w-[10rem]">
             <Field
               type="text"
               class="px-4 py-3 border-2 rounded-lg outline-none w-full"
-              placeholder="Tag"
-              id="tag"
-              name="tag"
-              v-model="formInput.tag"
+              placeholder="Choice Media"
+              id="media"
+              name="media"
+              v-model="formInput.media"
             />
             <ErrorMessage name="media" class="text-red-500" />
           </div>
@@ -96,12 +94,12 @@ const onSubmit = async () => {
         <div class="flex flex-col sm:flex-row gap-5">
           <div class="flex flex-col gap-2 flex-1">
             <Field
-              type="file"
+              type="text"
               class="px-4 py-3 border-2 rounded-lg outline-none w-full"
-              placeholder="media"
-              id="media"
-              name="media"
-              v-model="formInput.media"
+              placeholder="Tag"
+              id="tag"
+              name="tag"
+              v-model="formInput.tag"
             />
             <ErrorMessage name="tag" class="text-red-500" />
           </div>
