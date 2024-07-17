@@ -25,28 +25,13 @@ SECRET_KEY = 'django-insecure-2gpk=mnwv#cgpe(-eg)ifa@onzjj_$^vh3mxfh1ew9@((ibccs
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 #Custom congigration
 
-CORS_ALLOW_ALL_ORIGINS = True
-
-CORS_ALLOW_METHODS = [
-    'GET',
-    'POST',
-    'PUT',
-    'PATCH',
-    'DELETE',
-    'OPTIONS',
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:5173",
 ]
 
-# CORS_ALLOW_HEADERS = [
-#     'content-type',
-#     'authorization',
-#     'x-csrftoken',
-# ]
-
-
-# Application definition
 
 INSTALLED_APPS = [
     'daphne',
@@ -91,8 +76,13 @@ TEMPLATES = [
     },
 ]
 
-# WSGI_APPLICATION = 'backend.wsgi.application'
+WSGI_APPLICATION = 'backend.wsgi.application'
 ASGI_APPLICATION = 'backend.asgi.application' 
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    },
+}
 
 
 # Database

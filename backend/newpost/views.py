@@ -3,8 +3,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
 from rest_framework import viewsets, permissions
-from .serializers import PostSerializer, TagSerializer, LikeSerializer, CommentSerializer, NotificationSerializer, FollowSerializer
-from .models import Post, Tag, Like, Comment, Notification, Follow
+from .serializers import PostSerializer, TagSerializer, LikeSerializer, CommentSerializer, FollowSerializer
+from .models import Post, Tag, Like, Comment, Follow
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 
@@ -31,33 +31,11 @@ class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-# Post view
-class PostViewSet(viewsets.ModelViewSet):
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
-    # permission_classes = [permissions.IsAuthenticated]
-
- 
-
-# Notification view
-class NotificationViewSet(viewsets.ModelViewSet):
-    queryset = Notification.objects.all()
-    serializer_class = NotificationSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get_queryset(self):
-        return Notification.objects.filter(user=self.request.user)
-
-    async def perform_create(self, serializer):
-        channel_layer = get_channel_layer()
-        await async_to_sync(channel_layer.group_send)(
-            f'user_{self.request.user.id}',
-            {
-                'type': 'new_notification',
-                'notification': serializer.data
-            }
-        )
-        serializer.save(user=self.request.user)
+# # Post view
+# class PostViewSet(viewsets.ModelViewSet):
+#     queryset = Post.objects.all()
+#     serializer_class = PostSerializer
+#     # permission_classes = [permissions.IsAuthenticated]
 
 # Follow view
 class FollowViewSet(viewsets.ModelViewSet):

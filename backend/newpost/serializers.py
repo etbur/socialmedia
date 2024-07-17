@@ -21,9 +21,12 @@ class CommentSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class PostSerializer(serializers.ModelSerializer):
+    tags = serializers.SlugRelatedField(slug_field='name', queryset=Tag.objects.all(), many=True)
+
     class Meta:
         model = Post
-        fields = '__all__'
+        fields = ['user', 'title', 'description', 'media', 'tags', 'location', 'audience', 'created_at', 'updated_at']
+
 
 class NotificationSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField()

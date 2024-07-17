@@ -1,8 +1,7 @@
 <script setup>
-import NavbarView from "./components/NavbarView.vue";
-import { Icon } from "@iconify/vue";
-import Sidebar from "./components/Sidebar.vue";
 import { RouterLink, RouterView } from "vue-router";
+import NavbarView from "./components/NavbarView.vue";
+import Sidebar from "./components/Sidebar.vue";
 </script>
 
 <template>
