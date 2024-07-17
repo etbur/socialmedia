@@ -35,9 +35,7 @@ class CommentViewSet(viewsets.ModelViewSet):
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    # permission_classes = [permissions.IsAuthenticated]
-
- 
+    permission_classes = [permissions.IsAuthenticated]
 
 # Notification view
 class NotificationViewSet(viewsets.ModelViewSet):
@@ -48,21 +46,19 @@ class NotificationViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return Notification.objects.filter(user=self.request.user)
 
-    async def perform_create(self, serializer):
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
         channel_layer = get_channel_layer()
-        await async_to_sync(channel_layer.group_send)(
-            f'user_{self.request.user.id}',
+        async_to_sync(channel_layer.group_send)(
+            f"user_{self.request.user.id}",
             {
-                'type': 'new_notification',
-                'notification': serializer.data
+                "type": "new_notification",
+                "notification": serializer.data
             }
         )
-        serializer.save(user=self.request.user)
 
 # Follow view
 class FollowViewSet(viewsets.ModelViewSet):
     queryset = Follow.objects.all()
     serializer_class = FollowSerializer
     permission_classes = [permissions.IsAuthenticated]
-
-    
