@@ -25,7 +25,7 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ['user', 'title', 'description', 'media', 'tags', 'location', 'audience', 'created_at', 'updated_at']
+        fields = ['title', 'description', 'media', 'tags', 'location', 'audience', 'created_at', 'updated_at']
 
 
 class NotificationSerializer(serializers.ModelSerializer):

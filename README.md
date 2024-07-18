@@ -1,6 +1,6 @@
 # socialmedia
 
-This is a simple social media application built with vuejs , Django, and SQlite.
+This is a simple social media application built with vue js , Django, and SQlite.
 
 ## Features
 

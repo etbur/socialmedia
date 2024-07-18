@@ -31,11 +31,11 @@ class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-# # Post view
-# class PostViewSet(viewsets.ModelViewSet):
-#     queryset = Post.objects.all()
-#     serializer_class = PostSerializer
-#     # permission_classes = [permissions.IsAuthenticated]
+# Post view
+class PostViewSet(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    # permission_classes = [permissions.IsAuthenticated]
 
 # Follow view
 class FollowViewSet(viewsets.ModelViewSet):

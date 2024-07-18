@@ -1,10 +1,10 @@
-from django.urls import include, path
+from django.urls import path
 from rest_framework.routers import DefaultRouter
-from .views import TagViewSet, LikeViewSet, CommentViewSet,  FollowViewSet
+from . import views
 
 router = DefaultRouter()
-router.register(r'tags', TagViewSet)
-router.register(r'likes', LikeViewSet)
-router.register(r'comments', CommentViewSet)
-# router.register(r'posts', PostViewSet)
-router.register(r'follows', FollowViewSet)
+router.register(r'tags', views.TagViewSet, basename='tag')
+router.register(r'likes', views.LikeViewSet, basename='like')
+router.register(r'comments', views.CommentViewSet, basename='comment')
+router.register(r'posts', views.PostViewSet, basename='post')
+router.register(r'follows', views.FollowViewSet, basename='follow')
