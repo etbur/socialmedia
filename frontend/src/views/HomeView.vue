@@ -1,54 +1,43 @@
-<!-- PostFetchPage.vue -->
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 
+const webSocket = ref(null);
 const posts = ref([]);
-let webSocket;
-const isConnected = ref(false);
-const isLoading = ref(false);
-
-const formatDate = (dateString) => {
-  const date = new Date(dateString);
-  return date.toLocaleString();
-};
 
 const connectWebSocket = () => {
-  webSocket = new WebSocket('ws://localhost:8000/ws/posts/');
+  webSocket.value = new WebSocket('ws://localhost:8000/ws/posts/');
+  webSocket.value.onopen = onWebSocketOpen;
+  webSocket.value.onmessage = onWebSocketMessage;
+  webSocket.value.onerror = onWebSocketError;
+  webSocket.value.onclose = onWebSocketClose;
+};
 
-  webSocket.onopen = () => {
-    console.log('WebSocket connection established');
-    isConnected.value = true;
-    isLoading.value = false;
-    fetchPosts();
-  };
+const onWebSocketOpen = () => {
+  console.log('WebSocket connection opened');
+  fetchPosts();
+};
 
-  webSocket.onmessage = (event) => {
-    const data = JSON.parse(event.data);
-    console.log('Received data:', data); // Debugging: log received data
-    if (data.action === 'fetch_response') {
-      posts.value = data.posts;
-      console.log('Posts updated:', posts.value); // Debugging: log posts after update
-    } else if (data.error) {
-      console.error('Error from server:', data.error); // Debugging: log server error
-    }
-  };
+const onWebSocketMessage = (event) => {
+  console.log('WebSocket message received:', event.data);
+  const data = JSON.parse(event.data);
+  if (data.action === 'fetch_response') {
+    console.log('Received posts:', data.posts);
+    posts.value = data.posts;
+  } else {
+    console.error('Unexpected WebSocket message:', data);
+  }
+};
 
-  webSocket.onclose = () => {
-    console.log('WebSocket connection closed');
-    isConnected.value = false;
-    isLoading.value = true;
-    setTimeout(connectWebSocket, 5000); // Reconnect after 5 seconds
-  };
+const onWebSocketError = (error) => {
+  console.error('WebSocket error:', error);
+};
 
-  webSocket.onerror = (event) => {
-    console.error('WebSocket error:', event);
-    isConnected.value = false;
-    isLoading.value = true;
-  };
+const onWebSocketClose = () => {
+  console.log('WebSocket connection closed');
 };
 
 const fetchPosts = () => {
-  webSocket.send(JSON.stringify({ action: 'fetch' }));
+  webSocket.value.send(JSON.stringify({ action: 'fetch' }));
 };
 
 onMounted(() => {
@@ -56,36 +45,22 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  if (webSocket) {
-    webSocket.close();
+  if (webSocket.value) {
+    webSocket.value.close();
   }
 });
 </script>
 
 <template>
-  <div>
-    <h1>Posts</h1>
-    <div v-if="isLoading">Loading...</div>
-    <div v-else-if="!isConnected">
-      There was an error connecting to the WebSocket server.
+  <div class="mx-10 md:mx-0 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 mt-8 sm:mt-12 md:mt-16 lg:mt-20 xl:mt-24">
+    <h1>Show all posts</h1>
+    <div v-for="post in posts" :key="post.id" class="text-red-800">
+      <h1>{{ post.title }}</h1>
+      <h1>{{ post.description }}</h1>
+      <!-- <img :src="post.media" alt="post img" /> -->
+      <div v-for="tag in post.tags" :key="tag" class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+        {{ tag }}
+      </div>
     </div>
-    <table v-else>
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Content</th>
-          <th>Created At</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="post in posts" :key="post.id" class="text-xl text-black">
-          <td>{{ post.title }}</td>
-          <td>{{ post.content }}</td>
-          <!-- <img :src="post.media" /> -->
-          <td>{{ formatDate(post.created_at) }}</td>
-        </tr>
-      </tbody>
-    </table>
   </div>
 </template>
-
