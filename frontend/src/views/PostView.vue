@@ -1,11 +1,12 @@
 
 <script setup>
-import { reactive, onMounted, onBeforeUnmount } from "vue";
+import { reactive,ref, onMounted, onBeforeUnmount } from "vue";
 import { useRouter } from "vue-router";
 import { Form, Field } from "vee-validate";
 
 const router = useRouter();
 
+const previewUrl=ref(null)
 const formInput = reactive({
   title: "",
   description: "",
@@ -35,11 +36,11 @@ const connectWebSocket = () => {
 
 const onSubmit = async () => {
   const data = {
-    action: 'create',
+    action: "create",
     post: {
       title: formInput.title,
       description: formInput.description,
-      tags: formInput.tags.split(',').map(tag => tag.trim()),
+      tags: formInput.tags.split(",").map((tag) => tag.trim()),
       media: formInput.media,
       location: formInput.location,
       audience: formInput.audience,
@@ -52,7 +53,7 @@ const onSubmit = async () => {
     console.log("Data sent to WebSocket");
 
     // Reset form input after sending data
-    Object.keys(formInput).forEach(key => {
+    Object.keys(formInput).forEach((key) => {
       formInput[key] = "";
     });
 
@@ -66,6 +67,7 @@ const onSubmit = async () => {
 
 const handleMediaUpload = (event) => {
   formInput.media = event.target.files[0];
+  previewUrl.value= URL.createObjectURL(formInput.media)
 };
 
 // Set up and clean up WebSocket connection
@@ -78,7 +80,9 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <main class="flex flex-col gap-10 mx-10 md:mx-0 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 mt-8 sm:mt-12 md:mt-16 lg:mt-20 xl:mt-24">
+  <main
+    class="flex flex-col gap-10 mx-10 md:mx-0 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 mt-8 sm:mt-12 md:mt-16 lg:mt-20 xl:mt-24"
+  >
     <h1 class="text-xl font-semibold">New Post</h1>
     <div>
       <h2 class="text-[#C59728] text-lg">Author Name | Published Date</h2>
@@ -88,26 +92,68 @@ onBeforeUnmount(() => {
       <div class="flex flex-col gap-5">
         <div class="flex flex-col sm:flex-row gap-5">
           <div class="flex flex-col gap-2 flex-1">
-            <Field type="text" class="px-4 py-3 border-2 rounded-lg outline-none w-full" placeholder="Title (Optional)" id="title" name="title" v-model="formInput.title" />
+            <Field
+              type="text"
+              class="px-4 py-3 border-2 rounded-lg outline-none w-full"
+              placeholder="Title (Optional)"
+              id="title"
+              name="title"
+              v-model="formInput.title"
+            />
           </div>
           <div class="flex flex-col gap-2 flex-1">
-            <Field type="text" class="px-4 py-3 border-2 rounded-lg outline-none w-full" placeholder="What's happening?" id="description" name="description" v-model="formInput.description" />
+            <Field
+              type="text"
+              class="px-4 py-3 border-2 rounded-lg outline-none w-full"
+              placeholder="What's happening?"
+              id="description"
+              name="description"
+              v-model="formInput.description"
+            />
           </div>
         </div>
         <div class="flex flex-col sm:flex-row gap-5">
           <div class="flex flex-col gap-2 flex-1">
-            <Field type="text" class="px-4 py-3 border-2 rounded-lg outline-none w-full" placeholder="Tags (comma separated)" id="tags" name="tags" v-model="formInput.tags" />
+            <Field
+              type="text"
+              class="px-4 py-3 border-2 rounded-lg outline-none w-full"
+              placeholder="Tags (comma separated)"
+              id="tags"
+              name="tags"
+              v-model="formInput.tags"
+            />
           </div>
           <div class="flex flex-col gap-2 flex-1">
-            <Field type="file" class="px-4 py-3 border-2 rounded-lg outline-none w-full" id="media" name="media" @change="handleMediaUpload" />
+            <div class="relative flex gap-2 ">
+              <Field
+                type="file"
+                class="px-4 py-3 border-2 rounded-lg outline-none w-full"
+                id="media"
+                name="media"
+                @change="handleMediaUpload"
+              />
+              <div v-if="previewUrl" >
+                <img :src="previewUrl" class="max-h-20 object-contain" />
+              </div>
+            </div>
           </div>
         </div>
         <div class="flex flex-col sm:flex-row gap-5">
           <div class="flex flex-col gap-2 flex-1">
-            <Field type="text" class="px-4 py-3 border-2 rounded-lg outline-none w-full" placeholder="Location (Optional)" id="location" name="location" v-model="formInput.location" />
+            <Field
+              type="text"
+              class="px-4 py-3 border-2 rounded-lg outline-none w-full"
+              placeholder="Location (Optional)"
+              id="location"
+              name="location"
+              v-model="formInput.location"
+            />
           </div>
           <div class="flex flex-col gap-2 w-full sm:w-[10rem]">
-            <select class="px-4 py-3 border-2 rounded-lg outline-none w-full" v-model="formInput.audience">
+            <select
+              class="px-4 py-3 border-2 rounded-lg outline-none w-full"
+              v-model="formInput.audience"
+            >
               <option value="public">Public</option>
               <option value="friends">Friends</option>
               <option value="group">Group</option>
@@ -116,7 +162,10 @@ onBeforeUnmount(() => {
         </div>
       </div>
       <div class="flex justify-end mt-6">
-        <button type="submit" class="px-8 py-2 rounded-xl border-gray-300 bg-[#008A8A] text-white w-fit">
+        <button
+          type="submit"
+          class="px-8 py-2 rounded-xl border-gray-300 bg-[#008A8A] text-white w-fit"
+        >
           Post
         </button>
       </div>
