@@ -54,47 +54,21 @@ class PostConsumer(AsyncWebsocketConsumer):
                 'error': f'An error occurred while processing the request: {str(e)}'
             }))
 
-    # @database_sync_to_async
-    # def create_post(self, post_data):
-    #     tags = post_data.pop('tags', [])
-    #     post = Post.objects.create(**post_data)
-
-    #     # Debugging tags
-    #     logging.debug(f"Tags before conversion: {tags}")
-        
-    #     # Convert tags to integers if they are not already
-    #     try:
-    #         tags = [int(tag) for tag in tags]
-    #     except ValueError as e:
-    #         logging.error(f"Invalid tag data: {tags} - {e}")
-    #         raise ValueError(f"Invalid tag data: {tags} - {e}")
-
-    #     # Debugging tags after conversion
-    #     logging.debug(f"Tags after conversion: {tags}")
-
-    #     post.tags.add(*tags)
-    #     post.save()
-
-    #     return post
     @database_sync_to_async
     def create_post(self, post_data):
         tags = post_data.pop('tags', [])
         post = Post.objects.create(**post_data)
 
-    # Debugging tags
         logging.debug(f"Tags received from frontend: {tags}")
 
-    # Handle tag names as text
         tag_objects = []
         for tag_name in tags:
         # Create or get Tag object for each tag name
             tag, created = Tag.objects.get_or_create(name=tag_name)
             tag_objects.append(tag)
 
-    # Debugging tag objects
         logging.debug(f"Tag objects created/retrieved: {tag_objects}")
 
-    # Associate tags with the post
         post.tags.set(tag_objects)
         post.save()
 
