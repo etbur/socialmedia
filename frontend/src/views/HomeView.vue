@@ -70,6 +70,7 @@ onUnmounted(() => {
 </template> --> 
 <!-- fetch post using axios -->
 <script setup>
+import { Icon } from "@iconify/vue";
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
@@ -90,8 +91,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <section class=" ml-[4vw] mt-8 sm:mt-12 md:mt-16 lg:mt-20 xl:mt-24  flex ">
-    <div class="bg-[#F4F4F4] rounded-md p-16 w-[45vw] flex  flex-col gap-10">
+  <section class=" ml-[2vw] mt-8 sm:mt-12 md:mt-16 lg:mt-20 xl:mt-24  flex  flex-col  md:flex-row gap-[7vw]">
+    <div class="bg-[#F4F4F4] rounded-md p-16 w-full md:w-[45vw] flex flex-row flex-wrap md:flex-col gap-10">
        <div v-for="post in posts" :key="post.id" class="t  flex flex-col justify-center items-center bg-[#ffffff] p-6">
       <h1 class="text-xl font-semibold text-[#C59728] ">{{ post.title }}</h1>
       <p>{{ post.description }}</p>
@@ -100,12 +101,24 @@ onMounted(() => {
         {{ tag }}
       </div>
       <h1>{{ post.location }}</h1>
+      <div class="flex  flex-col gap-2  mt-6">
+        <div class="flex gap-2">
+          <h1>liked</h1>
+          <h1>comment</h1>
+        </div>
+        <div class="flex gap-[2vw]">
+          <Icon class="w-6 h-5" icon="mdi:like" />
+          <Icon class="w-6 h-5" icon="mdi:message" />
+          <Icon class="w-6 h-5" icon="mdi:share" />
+          <Icon class="w-6 h-5" icon="mdi:download" />
+          <Icon class="w-6 h-5" icon="mdi:more" />
+        </div>
+      </div>
     </div>
     </div>
-   
-    <div class="flex flex-col gap-10 md:fixed  md:right-28">
+    <div class="flex flex-row md:flex-col gap-10 ">
       <div class="h-[300px] bg-[#F4F4F4] w-[20vw] p-7">
-        <h1 class="text-[#C59728] font-semibold">Suggetion</h1>
+        <h1 class="text-[#C59728] font-semibold">People you may know</h1>
       </div>
       <div class="h-[300px] bg-[#F4F4F4] w-[20vw] p-7">
         <h1 class="text-[#C59728] font-semibold p-7">Trend</h1>
