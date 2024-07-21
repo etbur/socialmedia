@@ -7,7 +7,7 @@ const route = useRoute();
 </script>
  
  <template class="">
-  <div class="flex md:flex-col space-y-4  px-4 h-[500px] overflow-y-scroll">
+  <div class="flex md:flex-col space-y-4  pr-8 h-[500px] overflow-y-scroll">
 
     <router-link
       to="/post"
