@@ -30,9 +30,10 @@ class CommentViewSet(viewsets.ModelViewSet):
 
 # Post view
 class PostViewSet(viewsets.ModelViewSet):
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
-    # permission_classes = [permissions.IsAuthenticated]
+       queryset = Post.objects.all().order_by('-created_at')
+       serializer_class = PostSerializer
+     # permission_classes = [permissions.IsAuthenticated]
+
 
 # Follow view
 class FollowViewSet(viewsets.ModelViewSet):

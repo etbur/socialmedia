@@ -1,6 +1,7 @@
+from django.conf import settings
 from rest_framework import serializers
 from .models import Post, Tag, Like, Comment,Notification,Follow
-
+# from ..backend import settings
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
