@@ -27,7 +27,7 @@ const showSidebar = ref(false);
 
     <!-- Main Navigation -->
     <nav
-      class="flex flex-col sm:flex-row gap-10 p-4 bg-[#F1F1F1] justify-between items-center px-[7vw]"
+      class="flex flex-col sm:flex-row gap-10 p-4 bg-[#F1F1F1] justify-between items-center px-[7vw] shadow-md"
     >
       <div class="flex gap-11">
         <RouterLink to="/">
