@@ -6,8 +6,8 @@ import { useRoute } from "vue-router";
 const route = useRoute();
 </script>
  
- <template>
-  <div class="flex md:flex-col space-y-4  px-4 overflow-y-scroll">
+ <template class="">
+  <div class="flex md:flex-col space-y-4  px-4 h-[500px] overflow-y-scroll">
 
     <router-link
       to="/post"

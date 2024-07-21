@@ -1,12 +1,12 @@
-from django.shortcuts import render
+# from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.parsers import JSONParser
+# from rest_framework.parsers import JSONParser
 from rest_framework import viewsets, permissions
 from .serializers import PostSerializer, TagSerializer, LikeSerializer, CommentSerializer, FollowSerializer
 from .models import Post, Tag, Like, Comment, Follow
-from channels.layers import get_channel_layer
-from asgiref.sync import async_to_sync
+# from channels.layers import get_channel_layer
+# from asgiref.sync import async_to_sync
 
 # Create your views here.
 class index(APIView):
