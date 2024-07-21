@@ -91,12 +91,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <section class=" ml-[2vw] mt-8 sm:mt-12 md:mt-16 lg:mt-20 xl:mt-24  flex  flex-col  md:flex-row gap-[7vw]">
-    <div class="bg-[#F4F4F4] rounded-md p-16 w-full md:w-[45vw] flex flex-row flex-wrap md:flex-col gap-10">
+  <section class=" ml-[4vw] mt-8 sm:mt-12 md:mt-16 lg:mt-20 xl:mt-24  flex  flex-col  md:flex-row gap-[4vw]">
+    <div class="bg-[#F4F4F4] rounded-md p-16 w-full md:w-[46vw] flex flex-row flex-wrap md:flex-col gap-10">
        <div v-for="post in posts" :key="post.id" class="t  flex flex-col justify-center items-center bg-[#ffffff] p-6">
       <h1 class="text-xl font-semibold text-[#C59728] ">{{ post.title }}</h1>
       <p>{{ post.description }}</p>
-      <img :src="post.media" alt="post img" />
+      <img :src="post.media_url" alt="post img" />
       <div v-for="tag in post.tags" :key="tag" class="inline-block rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
         {{ tag }}
       </div>

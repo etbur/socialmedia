@@ -269,7 +269,7 @@ onBeforeUnmount(() => {
       <h2 class="text-[#C59728] text-lg">Author Name | Published Date</h2>
       <p>Please fill the content of the new post...</p>
     </div>
-    <Form @submit="onSubmit" :validation-schema="validationSchema">
+    <Form @submit.preven="onSubmit" :validation-schema="validationSchema">
       <div class="flex flex-col gap-5">
         <div class="flex flex-col sm:flex-row gap-5">
           <div class="flex flex-col gap-2 flex-1">
