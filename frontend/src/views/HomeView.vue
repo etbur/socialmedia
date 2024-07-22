@@ -76,6 +76,7 @@ import axios from 'axios';
 
 const posts = ref([]);
 
+
 const fetchPosts = async () => {
   try {
     const response = await axios.get('http://localhost:8000/api/posts');
@@ -96,7 +97,7 @@ onMounted(() => {
        <div v-for="post in posts" :key="post.id" class="t  flex flex-col justify-center items-center bg-[#ffffff] p-6">
       <h1 class="text-xl font-semibold text-[#C59728] ">{{ post.title }}</h1>
       <p>{{ post.description }}</p>
-      <img :src="post.media_url" alt="post img" />
+      <img :src="post.media_url " alt="post img" v-if="post.media_url"/>
       <div v-for="tag in post.tags" :key="tag" class="inline-block rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
         {{ tag }}
       </div>
@@ -126,3 +127,4 @@ onMounted(() => {
     </div>
   </section>
 </template>
+
