@@ -1,4 +1,4 @@
-
+import base64
 import json
 import logging
 from channels.generic.websocket import AsyncWebsocketConsumer
@@ -99,6 +99,7 @@ class PostFetchConsumer(AsyncWebsocketConsumer):
         if filters.get('tag'):
             posts = posts.filter(tags__name__in=[filters['tag']])
         return posts
+   
     
 class NotificationConsumer(AsyncWebsocketConsumer):
     async def connect(self):

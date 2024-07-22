@@ -90,30 +90,33 @@ onMounted(() => {
   fetchPosts();
 });
 </script>
-
 <template>
   <section class=" ml-[4vw] mt-8 sm:mt-12 md:mt-16 lg:mt-20 xl:mt-24  flex  flex-col  md:flex-row gap-[4vw]">
     <div class="bg-[#F4F4F4] rounded-md p-16 w-full md:w-[46vw] flex flex-row flex-wrap md:flex-col gap-10">
-       <div v-for="post in posts" :key="post.id" class="t  flex flex-col justify-center items-center bg-[#ffffff] p-6">
-      <h1 class="text-xl font-semibold text-[#C59728] ">{{ post.title }}</h1>
-      <p>{{ post.description }}</p>
-      <img :src="post.media_url " alt="post img" v-if="post.media_url"/>
-      <div v-for="tag in post.tags" :key="tag" class="inline-block rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
-        {{ tag }}
-      </div>
+       <div v-for="post in posts" :key="post.id" class="t  flex flex-col  bg-[#fffdfd]  px-12 py-20  shadow-sm">
+      <h1 class="text-xl font-semibold text-[#C59728] capitalize mb-5 ">{{ post.title }}</h1>
+      <p class="mb-5">{{ post.description }}</p>
+      <img :src="post.media_url " alt="post img" />
+      <h1 class="my-2">{{ post.tags.join(' ,') }}</h1>
       <h1>{{ post.location }}</h1>
-      <div class="flex  flex-col gap-2  mt-6">
-        <div class="flex gap-2">
-          <h1>liked</h1>
-          <h1>comment</h1>
-        </div>
-        <div class="flex gap-[2vw]">
-          <Icon class="w-6 h-5" icon="mdi:like" />
-          <Icon class="w-6 h-5" icon="mdi:message" />
-          <Icon class="w-6 h-5" icon="mdi:share" />
-          <Icon class="w-6 h-5" icon="mdi:download" />
-          <Icon class="w-6 h-5" icon="mdi:more" />
-        </div>
+      <div class="flex  flex-col  items-baseline  mt-6">
+          <div class="flex gap-[2vw]">
+            <div class="flex flex-col gap-2 hover:text-[#C59728]">
+              <h1 >liked</h1>
+              <Icon class="w-6 h-5" icon="mdi:thumbs-up" />
+            </div>
+            <div class="flex flex-col gap-2 hover:text-[#C59728]">
+              <h1>comment</h1>
+              <Icon class="w-6 h-5" icon="mdi:chat" />
+            </div>
+            
+            <div class="flex gap-16 mt-8">
+               <Icon class="w-6 h-5" icon="mdi:share"  className="hover:text-[#C59728]"/>
+            <Icon class="w-6 h-5" icon="mdi:download" />
+            <Icon class="w-6 h-5" icon="mdi:dots-vertical" />
+            </div>
+           
+          </div>
       </div>
     </div>
     </div>

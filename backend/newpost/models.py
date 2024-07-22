@@ -12,7 +12,7 @@ class Post(models.Model):
     # user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=100, blank=True, null=True)
     description = models.TextField()
-    media = models.FileField(upload_to='posts', null=True, blank=True)
+    media = models.FileField(upload_to='posts/', null=True, blank=True)
     tags = models.ManyToManyField(Tag, related_name='posts', blank=True)
     location = models.CharField(max_length=100, blank=True, null=True)
     audience = models.CharField(max_length=20, choices=[
