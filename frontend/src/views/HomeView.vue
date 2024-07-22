@@ -3,7 +3,6 @@ import { ref, onMounted, onUnmounted } from 'vue';
 
 const webSocket = ref(null);
 const posts = ref([]);
-
 const connectWebSocket = () => {
   webSocket.value = new WebSocket('ws://localhost:8000/ws/posts/fetch');
   webSocket.value.onopen = onWebSocketOpen;
@@ -130,4 +129,3 @@ onMounted(() => {
     </div>
   </section>
 </template>
-
