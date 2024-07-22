@@ -119,33 +119,7 @@ class LikeConsumer(AsyncWebsocketConsumer):
             await self.create_like(post_id)
         elif action == 'delete':
             await self.delete_like(post_id)
-
-    # @sync_to_async
-    # def create_like(self, post_id):
-    #     like, created = Like.objects.get_or_create(user=self.user, post_id=post_id)
-    #     if created:
-    #         # Notify the post owner about the new like
-    #         post = like.post
-    #         Notification.objects.create(
-    #             user=post.user,
-    #             post=post,
-    #             like=like,
-    #             message=f"{self.user.username} liked your post."
-    #         )
-
-    # @sync_to_async
-    # def delete_like(self, post_id):
-    #     like = Like.objects.filter(user=self.user, post_id=post_id).first()
-    #     if like:
-    #         like.delete()
-    #         # Notify the post owner about the unlike
-    #         post = like.post
-    #         Notification.objects.create(
-    #             user=post.user,
-    #             post=post,
-    #             like=like,
-    #             message=f"{self.user.username} unliked your post."
-    #         )
+            
     @sync_to_async
     def create_like(self, post_id):
         like, created = Like.objects.get_or_create(user=self.user, post_id=post_id)
@@ -206,8 +180,7 @@ class CommentConsumer(AsyncWebsocketConsumer):
             comment=comment,
             message=f"{self.user.username} commented on your post."
         )
-
-
+        
 class NotificationConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         self.user = self.scope['user']
